@@ -89,7 +89,32 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    var height = n, width = n;
+
+    var mtx = [];
+    for (var i = 0; i < n; i++)
+        mtx[i] = [];
+
+    var i=1, j=1;
+    for (var e = 0; e < n*n; e++) {
+        mtx[i-1][j-1] = e;
+        if ((i + j) % 2 == 0) {
+            if (j < n) 
+                j++;
+            else
+                i += 2;
+            if (i > 1) 
+                i--;
+        } else {
+            if (i < n) 
+                i++;
+            else
+                j += 2;
+            if (j > 1) 
+                j--;
+        }
+    }
+    return mtx;
 }
 
 
@@ -138,7 +163,20 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    var res = "";
+    for (var j = 0; j < nums.length; j++) {
+        var i = 0;
+        if ((nums[j + 1] - nums[j] == 1) && (nums[j + 2] - nums[j] == 2)) {
+            while (nums[j + 1] - nums[j] == 1) {
+                i++;
+                j++;
+            }
+            res += `${nums[j - i]}-${nums[j]},`;
+
+        } else
+            res += nums[j] + ",";
+    }
+    return res.slice(0, res.length - 1);
 }
 
 module.exports = {

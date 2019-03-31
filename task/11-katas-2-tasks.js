@@ -34,7 +34,33 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    const top =  [' _ ', '   ', ' _ ', ' _ ', '   ', ' _ ', ' _ ', ' _ ', ' _ ', ' _ '];
+    const middle =  ['| |', '  |', ' _|', ' _|', '|_|', '|_ ', '|_ ', '  |', '|_|', '|_|'];
+    const bottom =  ['|_|', '  |', '|_ ', ' _|', '  |', ' _|', '|_|', '  |', '|_|', ' _|'];
+
+    function getStringDigit(index, arr) {
+        let digit = [];
+        for (let i = 0; i < arr.length; i++) {
+            digit.push( arr[i].slice(index * 3, (index + 1) * 3));
+        }
+        return digit;
+    }
+
+    let stringAccount = bankAccount.split('\n');
+    const numOfDigits = bankAccount.length / 3 - 1;
+    let result = '';
+
+    for (let i = 0; i < numOfDigits; i++) {
+        const digit = getStringDigit(i, stringAccount);
+        for (let j = 0; j < numOfDigits; j++) {
+            if (top[j] == digit[0] && middle[j] == digit[1] && bottom[j] == digit[2]) {
+                result += j;
+                break;
+            }
+
+        }
+    } 
+    return result;
 }
 
 
